@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv');
 const connectDB = require('./databaseConnection/connection')
 const messageRouter = require('./routes/messageRouter')
+const cors = require('cors');
 
 const app = express();
 
@@ -13,12 +14,13 @@ connectDB()
 
 const PORT = process.env.PORT
 
+app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
     return res.json({
         Message: 'server message is here',
-        'visit': `localhost:${PORT}/api/message`
+        'visit': `localhost:${PORT}/api/messages`
     })
 })
 

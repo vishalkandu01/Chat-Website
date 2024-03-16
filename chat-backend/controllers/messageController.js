@@ -5,10 +5,10 @@ const ChatMessage = require("../models/ChatMessage");
 const messageReceive = async (req, res) => {
     try {
         const message = await ChatMessage.find();
-        res.json(message);
+        return res.json(message);
     } catch (error) {
         console.log(error);
-        res.status(500).json({
+        return res.status(500).json({
             error: "Internal Server Error"
         })
     }
@@ -33,13 +33,13 @@ const messageSend = async (req, res) => {
 
         await newMessage.save();
 
-        res
+        return res
         .status(201)
         .json({newMessage});
 
     } catch (error) {
         console.error("posting message error: ", error);
-        res
+        return res
         .status(500)
         .json({
             error: "Internal Server Error"
